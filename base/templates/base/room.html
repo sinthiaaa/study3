@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<style>
+   .room-container{
+
+      display: grid;
+      grid-template-columns : 3fr 1fr;
+    }
+</style>
+
+
+<div class="room-container" >
+    <div>
+
+<h1 style="text-decoration: none; "   >
+
+       {{room.name}}
+</h1>
+     <p style="text-decoration: none; "   >{{room.description}}</p>
+
+<div class="comment-wrapper">
+     <h3 style="text-decoration: none; "  >Conversation</h3>
+    <hr>
+     {% for message in room_messages %}
+        <div>
+
+             <small style="text-decoration: none; "   >@{{message.user}} {{message.created|timesince}}</small>
+
+            <p>{{message.body}}</p>
+            <hr  >
+        </div>
+    {% endfor %}
+</div>
+
+
+
+   <div class = "comment-form">
+    <form method = "POST" action="">
+        {% csrf_token %}
+        <input type="text" name="body" placeholder="Ask Question" />
+
+
+    </form>
+
+   </div>
+
+    </div>
+
+    <div>
+        <h3  style="text-decoration: none; "  >Participants</h3>
+         <hr>
+        {% for user in participants %}
+        <div>
+
+           <p  style="text-decoration: none; "  >@{{user.username}}</p>
+
+
+
+        </div>
+
+
+        {%endfor %}
+    </div>
+
+
+
+</div>
+{% endblock content %}
